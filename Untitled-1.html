@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Sancta ARG</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: 'Courier New', monospace; background-color: black; color: white; }
+    #app { width: 100%; height: 100vh; display: flex; justify-content: center; align-items: center; text-align: center; padding: 20px; background-size: cover; background-position: center; transition: background 0.5s; }
+    .hidden { display: none; }
+    .clickable-img { width: 300px; cursor: pointer; transition: transform 0.3s; border: 2px solid white; }
+    .clickable-img:hover { transform: scale(1.05); }
+    input, button { margin-top: 20px; padding: 10px; background: #111; color: white; border: 1px solid #444; }
+    .ritual-glow { font-size: 64px; font-weight: bold; color: #ff0000; text-shadow: 0 0 20px #ff0000, 0 0 40px #ff0000; }
+    .ritual-message { font-size: 24px; margin-top: 20px; text-shadow: 0 0 10px #fff; }
+  </style>
+</head>
+<body>
+  <div id="app"></div>
+
+  <script>
+    const app = document.getElementById("app");
+
+    const pages = [
+      function tela1() {
+        app.style.backgroundImage = "none";
+        return `
+          <div>
+            <p>"A cidade dorme sob véus de sangue e segredos..."</p>
+            <p><em>Autor: 01100001 00100000 01110011 01100001 01101100 01110110 01100001 01100011 01100001 01101111</em></p>
+            <button onclick="nextPage()">Continuar</button>
+          </div>
+        `;
+      },
+      function tela2() {
+        app.style.backgroundImage = "none";
+        return `
+          <div>
+            <p>Uma poça de líquido negro pulsa com um brilho sombrio...</p>
+            <img src="https://cdn.pixabay.com/photo/2021/06/02/20/26/liquid-6304893_960_720.jpg" class="clickable-img" onclick="nextPage()" alt="Líquido Preto Brilhante" />
+          </div>
+        `;
+      },
+      function tela3() {
+        app.style.backgroundImage = "none";
+        return `
+          <div>
+            <p>Qual o nome da igreja?</p>
+            <input id="resposta1" placeholder="Digite aqui" />
+            <button onclick="verificaResposta1()">Enviar</button>
+          </div>
+        `;
+      },
+      function tela4() {
+        app.style.backgroundImage = "none";
+        return `
+          <div>
+            <p>?</p>
+            <input id="resposta2" placeholder="Digite a resposta..." />
+            <button onclick="verificaResposta2()">Responder</button>
+          </div>
+        `;
+      },
+      function tela5() {
+        app.style.backgroundImage = "url('https://i.imgur.com/7hRmzA1.jpg')"; // imagem de ritual sombrio
+        return `
+          <div>
+            <p class="ritual-glow">666</p>
+            <p class="ritual-message">Um ritual bloqueia sua passagem...</p>
+            <p class="ritual-message"><em>Está chegando a hora. Volte no momento certo.</em></p>
+          </div>
+        `;
+      }
+    ];
+
+    let currentPage = 0;
+    function renderPage() {
+      app.innerHTML = pages[currentPage]();
+    }
+
+    function normalizarTexto(texto) {
+      return texto.normalize("NFD").replace(/\p{Diacritic}/gu, "").toLowerCase().trim();
+    }
+
+    function nextPage() {
+      currentPage++;
+      renderPage();
+    }
+
+    function verificaResposta1() {
+      const input = normalizarTexto(document.getElementById("resposta1").value);
+      if (input === "basilica do santo veu") {
+        nextPage();
+      } else {
+        alert("Resposta incorreta.");
+      }
+    }
+
+    function verificaResposta2() {
+      const input = normalizarTexto(document.getElementById("resposta2").value);
+      if (input === "a salvacao") {
+        nextPage();
+      } else {
+        alert("Ainda não é o momento.");
+      }
+    }
+
+    renderPage();
+  </script>
+</body>
+</html>
